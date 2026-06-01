@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vikoušovo 10. narozeniny — Crazy 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700;1,800;1,900&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: #09090b;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* Grid overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 44px 44px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ═══════════════════ VARIANT TABS ═══════════════════ */
+    .variant-nav {
+      position: relative;
+      z-index: 20;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      padding: 24px 16px 16px;
+    }
+    .v-tab {
+      font-family: 'Nunito', sans-serif;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 7px 18px;
+      border-radius: 50px;
+      border: 1.5px solid rgba(255,255,255,.35);
+      background: transparent;
+      color: rgba(255,255,255,.55);
+      cursor: default;
+    }
+    .v-tab.active {
+      background: #fff;
+      color: #000;
+      border-color: #fff;
+    }
+
+    /* ═══════════════════ HERO ═══════════════════ */
+    .hero {
+      position: relative;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 56px 24px 56px;
+      overflow: hidden;
+    }
+
+    /* Atmospheric glow — purple bottom-left, orange bottom-right */
+    .glow-purple {
+      position: absolute;
+      width: 560px; height: 560px;
+      background: radial-gradient(circle, rgba(109,40,217,.45) 0%, transparent 70%);
+      bottom: -80px; left: -120px;
+      pointer-events: none;
+    }
+    .glow-orange {
+      position: absolute;
+      width: 480px; height: 480px;
+      background: radial-gradient(circle, rgba(194,65,12,.4) 0%, transparent 70%);
+      bottom: -60px; right: -100px;
+      pointer-events: none;
+    }
+
+    /* Comic image frame */
+    .comic-wrap {
+      position: relative;
+      z-index: 2;
+      margin-bottom: 28px;
+    }
+    .comic-img {
+      display: block;
+      width: clamp(280px, 62vw, 680px);
+      height: auto;
+      border-radius: 18px;
+      border: 2px solid rgba(255,255,255,.25);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,.08),
+        0 0 40px rgba(163,230,53,.5),
+        0 0 80px rgba(163,230,53,.2),
+        -24px 0 60px rgba(124,58,237,.45),
+        24px 0 40px rgba(124,58,237,.3);
+    }
+    .age-badge {
+      position: absolute;
+      top: -14px;
+      right: -18px;
+      background: #facc15;
+      color: #000;
+      font-size: 13px;
+      font-weight: 900;
+      padding: 7px 16px;
+      border-radius: 50px;
+      transform: rotate(13deg);
+      white-space: nowrap;
+      box-shadow: 0 3px 10px rgba(0,0,0,.5);
+    }
+
+    /* "EVENT OF THE YEAR" pill */
+    .event-pill {
+      position: relative;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      border: 1.5px solid rgba(255,255,255,.45);
+      border-radius: 50px;
+      padding: 9px 22px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.75);
+      margin-bottom: 12px;
+    }
+
+    /* Title stack */
+    .title-stack {
+      position: relative;
+      z-index: 2;
+      line-height: 1;
+    }
+    .t-vikou {
+      display: block;
+      font-size: clamp(58px, 12.5vw, 108px);
+      font-weight: 900;
+      background: linear-gradient(130deg, #e879f9 20%, #a855f7 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .t-10 {
+      display: block;
+      font-size: clamp(110px, 24vw, 210px);
+      font-weight: 900;
+      line-height: .85;
+      background: linear-gradient(130deg, #a3e635 20%, #facc15 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .t-naroz {
+      display: block;
+      font-size: clamp(48px, 10.5vw, 92px);
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: 3px;
+    }
+
+    /* Subtitle pill */
+    .sub-pill {
+      position: relative;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 30px;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: 700;
+      margin-top: 24px;
+      /* gradient border trick */
+      background:
+        linear-gradient(rgba(9,9,11,.9), rgba(9,9,11,.9)) padding-box,
+        linear-gradient(135deg, #e879f9, #7c3aed, #06b6d4) border-box;
+      border: 1.5px solid transparent;
+      backdrop-filter: blur(12px);
+      box-shadow:
+        0 0 24px rgba(232,121,249,.2),
+        0 0 48px rgba(6,182,212,.12),
+        inset 0 1px 0 rgba(255,255,255,.08);
+      letter-spacing: .3px;
+    }
+
+    /* ═══════════════════ COUNTDOWN ═══════════════════ */
+    .countdown {
+      position: relative;
+      z-index: 5;
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      padding: 44px 24px 0;
+    }
+    .cd-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: clamp(82px, 18vw, 122px);
+      height: clamp(82px, 18vw, 122px);
+      border-radius: 20px;
+    }
+    .cd-box.pink   { background: #d946ef; box-shadow: 0 0 32px rgba(217,70,239,.65), 0 0 70px rgba(217,70,239,.3); }
+    .cd-box.cyan   { background: #06b6d4; box-shadow: 0 0 32px rgba(6,182,212,.65),  0 0 70px rgba(6,182,212,.3);  }
+    .cd-box.green  { background: #22c55e; box-shadow: 0 0 32px rgba(34,197,94,.65),  0 0 70px rgba(34,197,94,.3);  }
+    .cd-box.orange { background: #f97316; box-shadow: 0 0 32px rgba(249,115,22,.65), 0 0 70px rgba(249,115,22,.3); }
+    .cd-num {
+      font-size: clamp(38px, 8.5vw, 58px);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1;
+    }
+    .cd-label {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.8);
+      margin-top: 4px;
+    }
+
+    /* ═══════════════════ TICKER ═══════════════════ */
+    .ticker {
+      position: relative;
+      z-index: 5;
+      margin-top: 44px;
+      background: #a3e635;
+      height: 46px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    .ticker-track {
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+      animation: tickerMove 22s linear infinite;
+    }
+    .ticker-item {
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #000;
+      padding: 0 32px;
+    }
+    @keyframes tickerMove {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ═══════════════════ INFO + MAP ═══════════════════ */
+    .info-map {
+      position: relative;
+      z-index: 5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 48px;
+      padding: 60px 40px;
+      background: #09090b;
+      flex-wrap: wrap;
+    }
+    .info-panel {
+      background: transparent;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 20px;
+      max-width: 380px;
+      flex: 0 0 auto;
+    }
+    .info-eyebrow {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #e879f9;
+    }
+    .info-heading {
+      font-size: clamp(26px, 3.8vw, 42px);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.1;
+    }
+    .info-desc {
+      font-size: 15px;
+      color: rgba(255,255,255,.55);
+      line-height: 1.75;
+      max-width: 360px;
+    }
+    .info-items { display: flex; flex-direction: column; gap: 16px; }
+    .info-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .info-icon {
+      width: 48px; height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .info-icon.icon-date {
+      background: linear-gradient(135deg, #e879f9, #a855f7);
+      box-shadow: 0 0 18px rgba(232,121,249,.45);
+    }
+    .info-icon.icon-pin {
+      background: linear-gradient(135deg, #06b6d4, #22c55e);
+      box-shadow: 0 0 18px rgba(6,182,212,.45);
+    }
+    .info-icon svg {
+      width: 22px; height: 22px;
+      stroke: #fff;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .info-text strong {
+      display: block;
+      font-size: 16px;
+      font-weight: 800;
+      color: #fff;
+    }
+    .info-text span {
+      font-size: 13px;
+      color: rgba(255,255,255,.5);
+    }
+    .map-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #e879f9, #f97316);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 15px 30px;
+      border-radius: 50px;
+      text-decoration: none;
+      align-self: flex-start;
+      transition: opacity .2s, transform .2s;
+    }
+    .map-btn:hover { opacity: .85; transform: translateY(-2px); }
+    .map-panel {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+    }
+    .map-frame {
+      width: 420px;
+      height: 420px;
+      border-radius: 16px;
+      border: 2px solid rgba(255,255,255,.15);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,.06),
+        0 0 30px rgba(168,85,247,.4),
+        0 8px 32px rgba(0,0,0,.6);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .map-frame iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ═══════════════════ GUEST SECTION ═══════════════════ */
+    .guest-section {
+      position: relative;
+      z-index: 5;
+      background: linear-gradient(135deg, #3b0764 0%, #6d28d9 38%, #7c3aed 55%, #0e7490 100%);
+      padding: 80px 32px 90px;
+      text-align: center;
+      overflow: hidden;
+    }
+    .guest-eyebrow {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #facc15;
+      margin-bottom: 10px;
+    }
+    .guest-heading {
+      font-size: clamp(26px, 4.5vw, 42px);
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 56px;
+    }
+    /* Name cloud — two loose rows */
+    .name-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 6px 20px;
+    }
+    .name-row + .name-row { margin-top: 10px; }
+    .nm {
+      line-height: 1;
+      cursor: default;
+      font-family: 'Nunito', sans-serif;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+    }
+    .nm:hover { animation-play-state: paused; transform: scale(1.12) rotate(-2deg) !important; }
+
+    @keyframes dance-warm {
+      0%,100% { transform: scale(1);    color: #facc15; }
+      30%     { transform: scale(1.14); color: #e879f9; }
+      65%     { transform: scale(0.93); color: #fb923c; }
+    }
+    @keyframes dance-cool {
+      0%,100% { transform: scale(1);    color: #67e8f9; }
+      30%     { transform: scale(1.12); color: #a3e635; }
+      65%     { transform: scale(0.95); color: #818cf8; }
+    }
+    @keyframes dance-white {
+      0%,100% { transform: scale(1);    color: #ffffff; }
+      30%     { transform: scale(1.1);  color: #e879f9; }
+      65%     { transform: scale(0.96); color: #67e8f9; }
+    }
+    @keyframes dance-lavender {
+      0%,100% { transform: scale(1);    color: #c4b5fd; }
+      30%     { transform: scale(1.1);  color: #fb923c; }
+      65%     { transform: scale(0.95); color: #a3e635; }
+    }
+    /* sizes */
+    .n-xl  { font-size: clamp(48px,  8vw, 74px); }
+    .n-lg  { font-size: clamp(34px,  5.5vw, 54px); }
+    .n-md  { font-size: clamp(22px,  3.5vw, 36px); }
+    .n-sm  { font-size: clamp(16px,  2.5vw, 26px); }
+    /* weights */
+    .w-black  { font-weight: 900; }
+    .w-bold   { font-weight: 700; }
+    .w-reg    { font-weight: 400; }
+    .italic   { font-style: italic; }
+    /* colors */
+    .c-yellow  { color: #facc15; }
+    .c-white   { color: #ffffff; }
+    .c-cyan    { color: #67e8f9; }
+    .c-orange  { color: #fb923c; }
+    .c-lavender{ color: #c4b5fd; }
+
+    /* ═══════════════════ FOOTER ═══════════════════ */
+    footer {
+      position: relative;
+      z-index: 5;
+      background: #000;
+      text-align: center;
+      padding: 22px 16px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.28);
+    }
+
+    /* ═══════════════════ RESPONSIVE ═══════════════════ */
+    @media (max-width: 768px) {
+      .info-map { grid-template-columns: 1fr; }
+      .info-panel { padding: 44px 28px; }
+      .map-panel iframe { min-height: 320px; }
+    }
+    @media (max-width: 500px) {
+      .countdown { gap: 8px; }
+      .cd-box { width: 74px; height: 74px; border-radius: 14px; }
+      .cd-num { font-size: 34px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <div class="glow-purple"></div>
+    <div class="glow-orange"></div>
+
+    <!-- Comic image with "10 LET!!" badge -->
+    <div class="comic-wrap">
+      <img src="hero-jump-sleep.jpg" alt="Skákání na trampolínách a přespávačka" class="comic-img" />
+      <span class="age-badge">10 LET!!</span>
+    </div>
+
+    <!-- Event of the year pill -->
+    <div class="event-pill">
+      <span>✦</span>
+      Event of the Year
+      <span>✦</span>
+    </div>
+
+    <!-- Main title -->
+    <h1 class="title-stack">
+      <span class="t-vikou">Vikoušovo</span>
+      <span class="t-10">10.</span>
+      <span class="t-naroz">NAROZENINY</span>
+    </h1>
+
+    <!-- Subtitle pill -->
+    <div class="sub-pill">
+      Přespávačka u mamky ve Studiu&nbsp;🛌
+    </div>
+  </section>
+
+  <!-- ── COUNTDOWN ── -->
+  <div class="countdown">
+    <div class="cd-box pink">
+      <span class="cd-num" id="cd-days">--</span>
+      <span class="cd-label">Dní</span>
+    </div>
+    <div class="cd-box cyan">
+      <span class="cd-num" id="cd-hours">--</span>
+      <span class="cd-label">Hodin</span>
+    </div>
+    <div class="cd-box green">
+      <span class="cd-num" id="cd-mins">--</span>
+      <span class="cd-label">Minut</span>
+    </div>
+    <div class="cd-box orange">
+      <span class="cd-num" id="cd-secs">--</span>
+      <span class="cd-label">Sek</span>
+    </div>
+  </div>
+
+  <!-- ── TICKER STRIP ── -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <!-- duplicated for seamless loop -->
+      <span class="ticker-item">JUMP PARK JAROV ✦ 23. 6. 2026 ✦ SPACÁKY S SEBOU ✦ BUDE TO MEGA</span>
+      <span class="ticker-item">JUMP PARK JAROV ✦ 23. 6. 2026 ✦ SPACÁKY S SEBOU ✦ BUDE TO MEGA</span>
+      <span class="ticker-item">JUMP PARK JAROV ✦ 23. 6. 2026 ✦ SPACÁKY S SEBOU ✦ BUDE TO MEGA</span>
+      <span class="ticker-item">JUMP PARK JAROV ✦ 23. 6. 2026 ✦ SPACÁKY S SEBOU ✦ BUDE TO MEGA</span>
+      <span class="ticker-item">JUMP PARK JAROV ✦ 23. 6. 2026 ✦ SPACÁKY S SEBOU ✦ BUDE TO MEGA</span>
+      <span class="ticker-item">JUMP PARK JAROV ✦ 23. 6. 2026 ✦ SPACÁKY S SEBOU ✦ BUDE TO MEGA</span>
+      <span class="ticker-item">JUMP PARK JAROV ✦ 23. 6. 2026 ✦ SPACÁKY S SEBOU ✦ BUDE TO MEGA</span>
+      <span class="ticker-item">JUMP PARK JAROV ✦ 23. 6. 2026 ✦ SPACÁKY S SEBOU ✦ BUDE TO MEGA</span>
+    </div>
+  </div>
+
+  <!-- ── INFO + MAP ── -->
+  <section class="info-map">
+    <div class="info-panel">
+      <p class="info-eyebrow">Kdy a kde</p>
+      <h2 class="info-heading">Akce začíná<br/>v Jump Parku</h2>
+      <p class="info-desc">
+        Nejdřív se pořádně vyblázníme na trampolínách
+        a pak se přesuneme na legendární přespávačku ve Studiu.
+      </p>
+      <div class="info-items">
+        <div class="info-row">
+          <div class="info-icon icon-date">
+            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <div class="info-text">
+            <strong>Úterý 23. 6. 2026</strong>
+            <span>Přesný čas ještě včas upřesním</span>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon icon-pin">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="info-text">
+            <strong>Jump Park Jarov</strong>
+            <span>Lukavská 1495/8, Praha 3 – Jarov</span>
+          </div>
+        </div>
+      </div>
+      <a
+        href="https://maps.google.com/?q=Jump+Park+Jarov,+Luka%C5%99sk%C3%A1+1495%2F8,+Praha+3"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="map-btn"
+      >
+        OTEVŘÍT V MAPÁCH →
+      </a>
+    </div>
+    <div class="map-panel">
+      <div class="map-frame">
+        <iframe style="border:none" src="https://mapy.com/s/cekonolofu" frameborder="0"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── GUEST / HVĚZDNÉ OBSAZENÍ ── -->
+  <section class="guest-section">
+    <p class="guest-eyebrow">Hvězdné obsazení</p>
+    <h2 class="guest-heading">✦ Banda na akci ✦</h2>
+
+    <!-- Row 1 -->
+    <div class="name-row">
+      <span class="nm n-xl w-black" style="animation: dance-warm  3.1s 0.0s infinite ease-in-out;">Vikouš</span>
+      <span class="nm n-md w-bold italic" style="animation: dance-white 4.3s 0.5s infinite ease-in-out;">Max Stehno</span>
+      <span class="nm n-lg w-black" style="animation: dance-cool  3.7s 1.0s infinite ease-in-out;">Hugo</span>
+      <span class="nm n-sm w-reg" style="animation: dance-white 4.8s 1.6s infinite ease-in-out;">Téďa</span>
+      <span class="nm n-md w-bold" style="animation: dance-warm  3.4s 0.3s infinite ease-in-out;">Tomáš</span>
+      <span class="nm n-lg w-black" style="animation: dance-white 3.9s 0.8s infinite ease-in-out;">DAN</span>
+    </div>
+
+    <!-- Row 2 -->
+    <div class="name-row">
+      <span class="nm n-sm italic" style="animation: dance-cool  4.5s 0.6s infinite ease-in-out;">Max</span>
+      <span class="nm n-sm w-bold" style="animation: dance-white 3.6s 1.3s infinite ease-in-out;">MÍŠA</span>
+      <span class="nm n-lg w-black" style="animation: dance-cool  3.2s 0.9s infinite ease-in-out;">Vláda</span>
+      <span class="nm n-md w-reg" style="animation: dance-lavender 5.0s 0.4s infinite ease-in-out;">Séba</span>
+      <span class="nm n-lg w-black" style="animation: dance-warm  3.5s 1.1s infinite ease-in-out;">Mikuláš</span>
+      <span class="nm n-md italic" style="animation: dance-white 4.1s 0.7s infinite ease-in-out;">Ondra</span>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    Vikoušovo 10. narozeniny &nbsp;·&nbsp; 23. 6. 2026 &nbsp;·&nbsp; Jump Park Jarov
+  </footer>
+
+  <script>
+    // Countdown to Tue 23 June 2026 00:00 CEST (UTC+2)
+    const TARGET = new Date('2026-06-23T00:00:00+02:00');
+
+    function updateCd() {
+      const diff = TARGET - Date.now();
+      const pad  = n => String(Math.max(0, n)).padStart(2, '0');
+      if (diff <= 0) {
+        ['days','hours','mins','secs'].forEach(id =>
+          (document.getElementById('cd-' + id).textContent = '00')
+        );
+        return;
+      }
+      document.getElementById('cd-days').textContent  = pad(Math.floor(diff / 86400000));
+      document.getElementById('cd-hours').textContent = pad(Math.floor((diff % 86400000) / 3600000));
+      document.getElementById('cd-mins').textContent  = pad(Math.floor((diff % 3600000) / 60000));
+      document.getElementById('cd-secs').textContent  = pad(Math.floor((diff % 60000) / 1000));
+    }
+    updateCd();
+    setInterval(updateCd, 1000);
+  </script>
+</body>
+</html>
