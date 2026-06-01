@@ -109,6 +109,23 @@
       z-index: 2;
       margin-bottom: 28px;
       animation: imageBob 5s ease-in-out infinite; /* #3 */
+      isolation: isolate;
+    }
+    /* ambient backlight – žlutá vlevo, fialová vpravo */
+    .comic-wrap::before,
+    .comic-wrap::after {
+      content: '';
+      position: absolute;
+      inset: -8px;
+      border-radius: 24px;
+      filter: blur(28px);
+      z-index: -1;
+    }
+    .comic-wrap::before {
+      background: linear-gradient(90deg, rgba(234,179,8,.95) 0%, transparent 55%);
+    }
+    .comic-wrap::after {
+      background: linear-gradient(90deg, transparent 45%, rgba(124,58,237,.95) 100%);
     }
     @keyframes imageBob {
       0%,100% { transform: translateY(0); }
@@ -120,13 +137,9 @@
       height: auto;
       border-radius: 18px;
       border: 4px solid #ffffff;
-      box-shadow:
-        -60px 0 100px rgba(234,179,8,.85),
-        -100px 0 160px rgba(234,179,8,.4),
-        60px 0 100px rgba(124,58,237,.85),
-        100px 0 160px rgba(124,58,237,.4),
-        0 -20px 60px rgba(232,121,249,.2),
-        0 10px 40px rgba(0,0,0,.65);
+      box-shadow: 0 10px 40px rgba(0,0,0,.7);
+      position: relative;
+      z-index: 1;
     }
     .age-badge {
       position: absolute;
