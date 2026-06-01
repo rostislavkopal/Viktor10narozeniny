@@ -72,13 +72,14 @@
       overflow: hidden;
     }
 
-    /* Atmospheric glow — purple bottom-left, orange bottom-right */
+    /* Atmospheric glow — driftují (#1) */
     .glow-purple {
       position: absolute;
       width: 560px; height: 560px;
       background: radial-gradient(circle, rgba(109,40,217,.45) 0%, transparent 70%);
       bottom: -80px; left: -120px;
       pointer-events: none;
+      animation: orbDrift 5s ease-in-out infinite;
     }
     .glow-orange {
       position: absolute;
@@ -86,6 +87,20 @@
       background: radial-gradient(circle, rgba(194,65,12,.4) 0%, transparent 70%);
       bottom: -60px; right: -100px;
       pointer-events: none;
+      animation: orbDrift 4s ease-in-out infinite reverse;
+    }
+    .glow-pink-top {
+      position: absolute;
+      width: 360px; height: 360px;
+      background: radial-gradient(circle, rgba(232,121,249,.22) 0%, transparent 65%);
+      top: -60px; right: 10%;
+      pointer-events: none;
+      animation: orbDrift 6s ease-in-out infinite 1.5s;
+    }
+    @keyframes orbDrift {
+      0%,100% { transform: translate(0,0) scale(1); }
+      33%      { transform: translate(38px,-28px) scale(1.07); }
+      66%      { transform: translate(-22px,18px) scale(.94); }
     }
 
     /* Comic image frame */
@@ -93,6 +108,11 @@
       position: relative;
       z-index: 2;
       margin-bottom: 28px;
+      animation: imageBob 5s ease-in-out infinite; /* #3 */
+    }
+    @keyframes imageBob {
+      0%,100% { transform: translateY(0); }
+      50%     { transform: translateY(-10px); }
     }
     .comic-img {
       display: block;
@@ -117,12 +137,17 @@
       font-weight: 900;
       padding: 7px 16px;
       border-radius: 50px;
-      transform: rotate(13deg);
       white-space: nowrap;
       box-shadow: 0 3px 10px rgba(0,0,0,.5);
+      animation: badgeWobble 2.5s ease-in-out infinite; /* #4 */
+    }
+    @keyframes badgeWobble {
+      0%,100% { transform: rotate(13deg) scale(1);    }
+      40%     { transform: rotate(18deg) scale(1.12); }
+      70%     { transform: rotate(9deg)  scale(.96);  }
     }
 
-    /* "EVENT OF THE YEAR" pill */
+    /* "NEJLEPŠÍ AKCE ROKU 2026" pill */
     .event-pill {
       position: relative;
       z-index: 2;
@@ -164,6 +189,11 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      animation: numberGlow 3s ease-in-out infinite; /* #5 — 50 % intenzita */
+    }
+    @keyframes numberGlow {
+      0%,100% { filter: drop-shadow(0 0 4px rgba(163,230,53,.15)); }
+      50%     { filter: drop-shadow(0 0 22px rgba(163,230,53,.45)) drop-shadow(0 0 44px rgba(250,204,21,.22)); }
     }
     .t-naroz {
       display: block;
@@ -179,23 +209,47 @@
       z-index: 2;
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      padding: 14px 30px;
+      gap: 12px;
+      padding: 10px 20px 10px 10px;
       border-radius: 50px;
-      font-size: 16px;
-      font-weight: 700;
+      font-size: 15px;
+      font-weight: 800;
       margin-top: 24px;
-      /* gradient border trick */
       background:
-        linear-gradient(rgba(9,9,11,.9), rgba(9,9,11,.9)) padding-box,
-        linear-gradient(135deg, #e879f9, #7c3aed, #06b6d4) border-box;
+        linear-gradient(rgba(9,9,11,.92), rgba(9,9,11,.92)) padding-box,
+        linear-gradient(135deg, #06b6d4, #7c3aed, #e879f9) border-box;
       border: 1.5px solid transparent;
       backdrop-filter: blur(12px);
       box-shadow:
-        0 0 24px rgba(232,121,249,.2),
-        0 0 48px rgba(6,182,212,.12),
-        inset 0 1px 0 rgba(255,255,255,.08);
-      letter-spacing: .3px;
+        0 0 22px rgba(6,182,212,.2),
+        0 0 44px rgba(232,121,249,.1),
+        inset 0 1px 0 rgba(255,255,255,.07);
+      letter-spacing: .2px;
+    }
+    .sub-icon {
+      width: 36px; height: 36px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #06b6d4, #7c3aed);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 0 14px rgba(6,182,212,.55);
+    }
+    .sub-icon svg {
+      width: 18px; height: 18px;
+      stroke: #fff; fill: none;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .sub-zzz {
+      font-size: 13px;
+      font-weight: 900;
+      font-style: italic;
+      color: #a3e635;
+      letter-spacing: 1px;
+      animation: zzzFloat 2.2s ease-in-out infinite;
+    }
+    @keyframes zzzFloat {
+      0%,100% { opacity: 1;   transform: translateY(0);   }
+      50%     { opacity: .45; transform: translateY(-4px); }
     }
 
     /* ═══════════════════ COUNTDOWN ═══════════════════ */
@@ -216,11 +270,27 @@
       width: clamp(82px, 18vw, 122px);
       height: clamp(82px, 18vw, 122px);
       border-radius: 20px;
+      opacity: 0;
+      animation: cdEntrance .6s forwards cubic-bezier(.34,1.56,.64,1); /* #6 */
+      position: relative;
+      overflow: hidden;
     }
-    .cd-box.pink   { background: #d946ef; box-shadow: 0 0 32px rgba(217,70,239,.65), 0 0 70px rgba(217,70,239,.3); }
-    .cd-box.cyan   { background: #06b6d4; box-shadow: 0 0 32px rgba(6,182,212,.65),  0 0 70px rgba(6,182,212,.3);  }
-    .cd-box.green  { background: #22c55e; box-shadow: 0 0 32px rgba(34,197,94,.65),  0 0 70px rgba(34,197,94,.3);  }
-    .cd-box.orange { background: #f97316; box-shadow: 0 0 32px rgba(249,115,22,.65), 0 0 70px rgba(249,115,22,.3); }
+    /* glimmer overlay */
+    .cd-box::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,.18) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    @keyframes cdEntrance {
+      from { transform: translateY(44px) scale(.7); opacity: 0; }
+      to   { transform: translateY(0) scale(1);     opacity: 1; }
+    }
+    .cd-box.pink   { background: linear-gradient(135deg,#f0abfc,#d946ef); box-shadow: 0 0 32px rgba(217,70,239,.65), 0 0 70px rgba(217,70,239,.3); animation-delay:.15s; }
+    .cd-box.cyan   { background: linear-gradient(135deg,#67e8f9,#06b6d4); box-shadow: 0 0 32px rgba(6,182,212,.65),  0 0 70px rgba(6,182,212,.3);  animation-delay:.3s;  }
+    .cd-box.green  { background: linear-gradient(135deg,#86efac,#22c55e); box-shadow: 0 0 32px rgba(34,197,94,.65),  0 0 70px rgba(34,197,94,.3);  animation-delay:.45s; }
+    .cd-box.orange { background: linear-gradient(135deg,#fdba74,#f97316); box-shadow: 0 0 32px rgba(249,115,22,.65), 0 0 70px rgba(249,115,22,.3); animation-delay:.6s;  }
     .cd-num {
       font-size: clamp(38px, 8.5vw, 58px);
       font-weight: 900;
@@ -265,6 +335,21 @@
       from { transform: translateX(0); }
       to   { transform: translateX(-50%); }
     }
+    /* druhý ticker — tmavý, opačný směr (#7) */
+    .ticker-rev {
+      background: #09090b;
+      border-top: 2px solid #a3e635;
+      border-bottom: 2px solid #a3e635;
+    }
+    .ticker-track-rev { animation: tickerRev 28s linear infinite; }
+    .ticker-item-rev  { color: #a3e635; }
+    @keyframes tickerRev {
+      from { transform: translateX(-50%); }
+      to   { transform: translateX(0); }
+    }
+    /* scroll reveal (#8) */
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
 
     /* ═══════════════════ INFO + MAP ═══════════════════ */
     .info-map {
@@ -348,6 +433,7 @@
       color: rgba(255,255,255,.5);
     }
     .map-btn {
+      position: relative;
       display: inline-flex;
       align-items: center;
       gap: 8px;
@@ -361,9 +447,22 @@
       border-radius: 50px;
       text-decoration: none;
       align-self: flex-start;
-      transition: opacity .2s, transform .2s;
+      overflow: hidden;
+      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 0 20px rgba(232,121,249,.35);
     }
-    .map-btn:hover { opacity: .85; transform: translateY(-2px); }
+    /* shimmer (#9) */
+    .map-btn::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -75%;
+      width: 50%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent);
+      transform: skewX(-20deg);
+      animation: shimmer 3s ease-in-out infinite;
+    }
+    .map-btn:hover { transform: translateY(-3px); box-shadow: 0 0 34px rgba(232,121,249,.6); }
+    @keyframes shimmer { 0%{left:-75%} 100%{left:125%} }
     .map-panel {
       display: flex;
       align-items: center;
@@ -410,6 +509,27 @@
       font-weight: 900;
       color: #fff;
       margin-bottom: 56px;
+      display: inline-block;
+    }
+    /* gradient podtržení (#11) */
+    .guest-heading::after {
+      content: '';
+      display: block;
+      height: 4px;
+      margin-top: 10px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, #e879f9, #facc15, #06b6d4);
+      animation: lineGrow .9s ease both;
+    }
+    @keyframes lineGrow {
+      from { transform: scaleX(0); opacity: 0; }
+      to   { transform: scaleX(1); opacity: 1; }
+    }
+    /* hvězdy (#10) */
+    .star { position: absolute; background: #fff; border-radius: 50%; pointer-events: none; }
+    @keyframes twinkle {
+      0%,100% { opacity:.15; transform:scale(1); }
+      50%     { opacity:.9;  transform:scale(1.8); }
     }
     /* Name cloud — two loose rows */
     .name-row {
@@ -482,14 +602,41 @@
 
     /* ═══════════════════ RESPONSIVE ═══════════════════ */
     @media (max-width: 768px) {
-      .info-map { grid-template-columns: 1fr; }
-      .info-panel { padding: 44px 28px; }
-      .map-panel iframe { min-height: 320px; }
+      .info-map {
+        flex-direction: column;
+        padding: 40px 20px;
+        gap: 32px;
+      }
+      .info-panel {
+        max-width: 100%;
+        width: 100%;
+      }
+      .map-panel {
+        width: 100%;
+      }
+      .map-frame {
+        width: 100%;
+        height: 280px;
+      }
+      .info-desc {
+        max-width: 100%;
+      }
+      .map-btn {
+        align-self: stretch;
+        justify-content: center;
+        min-height: 48px;
+      }
     }
     @media (max-width: 500px) {
-      .countdown { gap: 8px; }
+      .hero { padding: 36px 16px 36px; }
+      .event-pill { letter-spacing: 2px; font-size: 10px; padding: 7px 14px; }
+      .sub-pill { font-size: 13px; padding: 8px 14px 8px 8px; }
+      .t-naroz { letter-spacing: 1px; }
+      .countdown { gap: 8px; padding: 32px 16px 0; }
       .cd-box { width: 74px; height: 74px; border-radius: 14px; }
       .cd-num { font-size: 34px; }
+      .guest-section { padding: 60px 16px 70px; }
+      .name-row { gap: 4px 10px; }
     }
   </style>
 </head>
@@ -499,6 +646,7 @@
   <section class="hero">
     <div class="glow-purple"></div>
     <div class="glow-orange"></div>
+    <div class="glow-pink-top"></div>
 
     <!-- Comic image with "10 LET!!" badge -->
     <div class="comic-wrap">
@@ -509,7 +657,7 @@
     <!-- Event of the year pill -->
     <div class="event-pill">
       <span>✦</span>
-      Event of the Year
+      Nejlepší akce roku 2026
       <span>✦</span>
     </div>
 
@@ -522,7 +670,11 @@
 
     <!-- Subtitle pill -->
     <div class="sub-pill">
-      Přespávačka u mamky ve Studiu&nbsp;🛌
+      <div class="sub-icon">
+        <svg viewBox="0 0 24 24"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg>
+      </div>
+      <span>Přespávačka u mamky ve Studiu</span>
+      <span class="sub-zzz">zzz</span>
     </div>
   </section>
 
@@ -546,7 +698,7 @@
     </div>
   </div>
 
-  <!-- ── TICKER STRIP ── -->
+  <!-- ── TICKER STRIP — dvě pásky (#7) ── -->
   <div class="ticker" aria-hidden="true">
     <div class="ticker-track">
       <!-- duplicated for seamless loop -->
@@ -561,8 +713,18 @@
     </div>
   </div>
 
+  <!-- druhá páska — opačný směr, tmavá -->
+  <div class="ticker ticker-rev" aria-hidden="true">
+    <div class="ticker-track ticker-track-rev">
+      <span class="ticker-item ticker-item-rev">VIKOUŠ MÁ 10 LET ⚡ JUMP PARK JAROV ⚡ PŘESPÁVAČKA ⚡ CRAZY 2026 ⚡</span>
+      <span class="ticker-item ticker-item-rev">VIKOUŠ MÁ 10 LET ⚡ JUMP PARK JAROV ⚡ PŘESPÁVAČKA ⚡ CRAZY 2026 ⚡</span>
+      <span class="ticker-item ticker-item-rev">VIKOUŠ MÁ 10 LET ⚡ JUMP PARK JAROV ⚡ PŘESPÁVAČKA ⚡ CRAZY 2026 ⚡</span>
+      <span class="ticker-item ticker-item-rev">VIKOUŠ MÁ 10 LET ⚡ JUMP PARK JAROV ⚡ PŘESPÁVAČKA ⚡ CRAZY 2026 ⚡</span>
+    </div>
+  </div>
+
   <!-- ── INFO + MAP ── -->
-  <section class="info-map">
+  <section class="info-map reveal">
     <div class="info-panel">
       <p class="info-eyebrow">Kdy a kde</p>
       <h2 class="info-heading">Akce začíná<br/>v Jump Parku</h2>
@@ -607,7 +769,7 @@
   </section>
 
   <!-- ── GUEST / HVĚZDNÉ OBSAZENÍ ── -->
-  <section class="guest-section">
+  <section class="guest-section reveal" id="guest-section">
     <p class="guest-eyebrow">Hvězdné obsazení</p>
     <h2 class="guest-heading">✦ Banda na akci ✦</h2>
 
@@ -657,6 +819,22 @@
     }
     updateCd();
     setInterval(updateCd, 1000);
+
+    // Starfield (#10)
+    const guestEl = document.getElementById('guest-section');
+    for (let i = 0; i < 80; i++) {
+      const s = document.createElement('div');
+      s.className = 'star';
+      const sz = Math.random() * 2.5 + .5;
+      s.style.cssText = `width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;opacity:${Math.random()*.5+.1};animation:twinkle ${2+Math.random()*4}s ${Math.random()*-6}s ease-in-out infinite;`;
+      guestEl.appendChild(s);
+    }
+
+    // Scroll reveal (#8)
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: .1 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
   </script>
 </body>
 </html>
